@@ -45,7 +45,7 @@ pip install bpy            # Blender as a Python module (or run the scripts with
 2. Go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
 3. Every push to `main` runs `.github/workflows/deploy.yml` and publishes the site. You can also run it by hand from the **Actions** tab.
 
-`.github/workflows/build-models.yml` is a manual workflow. It rebuilds the cars in CI from the Blender script and commits the results, which then triggers a deploy.
+`.github/workflows/build-models.yml` is a manual workflow. It rebuilds the cars in CI from the Blender script and commits the results; when run on `main`, it then starts a deploy.
 
 ## Layout
 

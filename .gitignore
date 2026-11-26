@@ -1,0 +1,7 @@
+# raw (uncompressed) exports and previews from blender/build_cars.py
+blender/car_*.glb
+blender/prev_*.png
+blender/*.blend1
+_site/
+node_modules/
+.DS_Store

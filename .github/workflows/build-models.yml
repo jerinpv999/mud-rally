@@ -1,0 +1,45 @@
+# Manually rebuild the cars from blender/build_cars.py and commit the results.
+# Run it from the Actions tab after editing the Blender script; the commit then starts the Pages deploy.
+name: Rebuild car models
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write # to start deploy.yml after committing
+
+jobs:
+  build-models:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install Blender as a Python module
+        run: |
+          sudo apt-get update && sudo apt-get install -y libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0
+          pip install bpy
+
+      - name: Build, compress, render thumbnails, embed
+        run: SAMPLES=16 ./tools/build_models.sh
+
+      - name: Commit updated models
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add index.html models blender/*.blend
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Rebuild car models"
+          git push
+          # A push made with the workflow token does not trigger other workflows, so start the deploy here.
+          if [ "$GITHUB_REF_NAME" = main ]; then gh workflow run deploy.yml --ref main; fi
