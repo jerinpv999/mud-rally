@@ -9,7 +9,9 @@ A rally racing game in a single HTML file: Three.js, WebRTC multiplayer, compute
 - **Online:** after the GitHub Pages deploy (below) it lives at `https://<your-user>.github.io/<repo>/`.
 - **Offline:** open `index.html` in Chrome, Edge or Firefox. The cars are embedded in the file; Three.js and the Draco decoder load from a CDN, so you need internet access the first time.
 
-Controls: `W`/`↑` throttle, `S`/`↓` brake and reverse, `A` `D` steer, `Space` handbrake, `R` back on the road, `C` camera, `M` sound. Phones get on-screen pedals.
+Controls: `W`/`↑` throttle, `S`/`↓` brake and reverse, `A` `D` steer, `Space` handbrake, `Shift` or `N` nitro, `R` back on the road, `C` camera (chase, cockpit, bonnet), `M` sound. Phones get on-screen pedals and a nitro button.
+
+Nitro lasts about three seconds from a full tank. It refills over time, faster while drifting. Computer cars use it on straights at Normal and Hard.
 
 ### Multiplayer
 
